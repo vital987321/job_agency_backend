@@ -106,6 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL='agencyapp.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -128,3 +129,26 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CONTRACT_TYPE=[
+    ('Full-time', 'Full-time'),
+    ('Part-time', 'Part-time'),
+    ('Brigade', 'Brigade'),
+]
+RESIDENCE_TYPES=[
+    ('EU citizenship', 'EU citizenship'),
+    ('Permanent rsidance', 'Permanent rsidance',),
+    ('Residance permit with free acces to job market',
+     'Residance permit with free acces to job market'),
+    ('Blue card', 'Blue card'),
+    ('Working card', 'Working card'),
+    ('Working visa', 'Working visa'),
+    ('No visa', 'No visa'),
+]
+
+APPLICATION_STATUS=[
+    ('Pending','Pending'),
+    ('Confirmed', 'Confirmed'),
+    ('Rejected','Rejected')
+]
