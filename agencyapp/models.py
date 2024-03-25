@@ -7,22 +7,31 @@ class User(AbstractUser):
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
 
 
-class Field(models.Model):
-    name=models.CharField(max_length=100)
+class Sector(models.Model):
+    name=models.CharField(max_length=100, unique=True)
+    def __str__(self) -> str:
+        return 'Sector: '+str(self.name)
     
 
 class Vacancy(models.Model):
     name=models.CharField(max_length=200)
-    field=models.ForeignKey(Field, on_delete=models.CASCADE, related_name='vacancies')
+    sector=models.ManyToManyField(Sector, blank=True, related_name='vacancies')
     location = models.CharField(max_length=300, blank=True, null=True)
     salary=models.PositiveIntegerField(blank=True, null=True)
     company=models.CharField(max_length=100, blank=True, null=True)
     contract_type = models.CharField(
         max_length=100, choices=CONTRACT_TYPE, default=CONTRACT_TYPE[0][0])
     description=models.TextField(max_length=1000, blank=True, null=True)
+    requirements = models.TextField(max_length=1000, blank=True, null=True)
     created_at=models.DateField(auto_now_add=True)
     residence_type = models.CharField(max_length=100, choices=RESIDENCE_TYPES, blank=True, null=True)
     visa_assistance=models.BooleanField(null=True, blank=True)
+    class Meta:
+        verbose_name_plural='vacancies'
+    def __str__(self):
+        if len(self.name)<30:
+            return self.name
+        return self.name[:28]+'...'
 
 class Application(models.Model):
     vacancy=models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
