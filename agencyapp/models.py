@@ -23,11 +23,13 @@ class Vacancy(models.Model):
         max_length=100, choices=CONTRACT_TYPE, default=CONTRACT_TYPE[0][0])
     description=models.TextField(max_length=1000, blank=True, null=True)
     requirements = models.TextField(max_length=1000, blank=True, null=True)
-    created_at=models.DateField(auto_now_add=True)
+    created_at=models.DateTimeField(auto_now_add=True)
     residence_type = models.CharField(max_length=100, choices=RESIDENCE_TYPES, blank=True, null=True)
     visa_assistance=models.BooleanField(null=True, blank=True)
     class Meta:
         verbose_name_plural='vacancies'
+        ordering=['-created_at']
+
     def __str__(self):
         if len(self.name)<30:
             return self.name
@@ -37,9 +39,10 @@ class Application(models.Model):
     vacancy=models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications', blank=True, null=True)
     phone=models.CharField(max_length=15, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField()
     message = models.TextField(max_length=1000, blank=True, null=True)
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
     status=models.CharField(max_length=50, choices=APPLICATION_STATUS, default=APPLICATION_STATUS[0][0])
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
