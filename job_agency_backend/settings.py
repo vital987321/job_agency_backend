@@ -152,3 +152,9 @@ APPLICATION_STATUS=[
     ('Confirmed', 'Confirmed'),
     ('Rejected','Rejected')
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
