@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agencyapp.apps.AgencyappConfig',
     'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -156,5 +157,15 @@ APPLICATION_STATUS=[
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-    )
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.TokenAuthentication',
+        'agencyapp.api.authentication.TokenExpiredAuthantication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
+
+
+TOKEN_EXPIRED_SECONDS=30

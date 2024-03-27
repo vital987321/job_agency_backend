@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from agencyapp.api.resources import VacancyViewSet, ApplicationViewSet, UserViewSet
+from rest_framework.authtoken import views
 
 router=routers.SimpleRouter()
 router.register(r'vacancy', VacancyViewSet)
@@ -25,7 +26,9 @@ router.register(r'application', ApplicationViewSet)
 router.register(r'user', UserViewSet)
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('auth/', views.obtain_auth_token),
 ]
