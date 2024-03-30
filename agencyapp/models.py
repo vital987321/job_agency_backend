@@ -21,6 +21,13 @@ class Vacancy(models.Model):
     company=models.CharField(max_length=100, blank=True, null=True)
     contract_type = models.CharField(
         max_length=100, choices=CONTRACT_TYPE, default=CONTRACT_TYPE[0][0])
+    hours_from = models.TimeField(blank=True, null=True)
+    hours_to = models.TimeField(blank=True, null=True)
+    gender = models.CharField(max_length=20, choices=[
+                            ('Male/Female', 'Male/Female'),
+                              ('Male', 'Male'),
+                              ('Female', 'Female')], 
+                              default='Male/Female')
     description=models.TextField(max_length=1000, blank=True, null=True)
     requirements = models.TextField(max_length=1000, blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)

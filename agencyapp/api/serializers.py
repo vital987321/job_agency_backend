@@ -27,12 +27,16 @@ class VacancySerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Vacancy
-        fields=['name',
+        fields=['id',
+                'name',
                 'sector',
                 'location', 
                 'salary', 
                 'company',
-                'contract_type', 
+                'contract_type',
+                'hours_from',
+                'hours_to',
+                'gender',
                 'description', 
                 'requirements', 
                 'created_at', 
