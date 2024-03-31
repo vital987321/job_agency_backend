@@ -19,11 +19,16 @@ class UserSerializer(serializers.ModelSerializer):
     def save(self):
         super().save(username=self.validated_data['email'])
 
-    
+
+class SectorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Sector
+        fields=['name',]   
 
 
 class VacancySerializer(serializers.ModelSerializer):
     created_at=serializers.DateTimeField(read_only=True)
+    sector_name = SectorSerializer(many=True, read_only=True, source='sector')
 
     class Meta:
         model=Vacancy
@@ -41,12 +46,10 @@ class VacancySerializer(serializers.ModelSerializer):
                 'requirements', 
                 'created_at', 
                 'residence_type', 
-                'visa_assistance']
+                'visa_assistance',
+                'sector_name']
 
-class SectorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Sector
-        fields=['name',]
+
 
 class ApplicationSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(read_only=True)
