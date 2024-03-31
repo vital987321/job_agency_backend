@@ -45,6 +45,8 @@ class Vacancy(models.Model):
 class Application(models.Model):
     vacancy=models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications', blank=True, null=True)
+    first_name=models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
     phone=models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField()
     message = models.TextField(max_length=1000, blank=True, null=True)

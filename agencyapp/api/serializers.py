@@ -63,5 +63,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'cv', 
                 'status',
                 'created_at',
+                'first_name',
+                'last_name'
                  ]
 
