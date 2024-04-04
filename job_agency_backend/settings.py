@@ -142,15 +142,25 @@ CONTRACT_TYPE=[
     ('Brigade', 'Brigade'),
 ]
 RESIDENCE_TYPES=[
-    ('EU citizenship', 'EU citizenship'),
-    ('Permanent rsidance', 'Permanent rsidance',),
-    ('Residance permit with free acces to job market',
-     'Residance permit with free acces to job market'),
-    ('Blue card', 'Blue card'),
-    ('Working card', 'Working card'),
-    ('Working visa', 'Working visa'),
-    ('No visa', 'No visa'),
+    (1, 'EU citizenship'),
+    (2, 'Permanent rsidance',),
+    (3, 'Residance permit with free acces to job market'),
+    (4, 'Blue card'),
+    (5, 'Working card'),
+    (6, 'Working visa'),
+    (7, 'No visa'),
 ]
+
+# RESIDENCE_TYPES=[
+#     ('EU citizenship', 'EU citizenship'),
+#     ('Permanent rsidance', 'Permanent rsidance',),
+#     ('Residance permit with free acces to job market',
+#      'Residance permit with free acces to job market'),
+#     ('Blue card', 'Blue card'),
+#     ('Working card', 'Working card'),
+#     ('Working visa', 'Working visa'),
+#     ('No visa', 'No visa'),
+# ]
 
 APPLICATION_STATUS=[
     ('Pending','Pending'),
@@ -169,7 +179,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',]
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 CORS_ALLOW_ALL_ORIGINS = True

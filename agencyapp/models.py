@@ -31,7 +31,8 @@ class Vacancy(models.Model):
     description=models.TextField(max_length=1000, blank=True, null=True)
     requirements = models.TextField(max_length=1000, blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
-    residence_type = models.CharField(max_length=100, choices=RESIDENCE_TYPES, blank=True, null=True)
+    residence_type = models.IntegerField(choices=RESIDENCE_TYPES, blank=True, null=True)
+    # residence_type = models.CharField(max_length=100, choices=RESIDENCE_TYPES, blank=True, null=True)
     visa_assistance=models.BooleanField(null=True, blank=True)
     class Meta:
         verbose_name_plural='vacancies'

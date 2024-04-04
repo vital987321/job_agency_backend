@@ -3,13 +3,20 @@ from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorS
 from agencyapp.models import Vacancy, Application, User
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-
+from agencyapp.api.filters import VacancyFilter
 
 class VacancyViewSet(viewsets.ModelViewSet):
     queryset=Vacancy.objects.all()
     serializer_class=VacancySerializer
     filter_backends=[DjangoFilterBackend]
-    filter_fields=('name')
+    filterset_class=VacancyFilter
+
+# class VacancyViewSet(viewsets.ModelViewSet):
+#     queryset=Vacancy.objects.all()
+#     serializer_class=VacancySerializer
+#     filter_backends=[DjangoFilterBackend]
+#     # filterset_fields=['name', 'location']
+#     filterset_fields={'name':["icontains","exact"], "location":["exact"]}
     
 
 
