@@ -3,7 +3,7 @@ from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICAT
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, blank=True, null=True)
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
 
 

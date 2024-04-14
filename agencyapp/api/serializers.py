@@ -2,15 +2,32 @@ from rest_framework import serializers
 from agencyapp.models import User, Vacancy, Sector, Application
 
 class UserSerializer(serializers.ModelSerializer):
-    first_name = serializers.CharField(max_length=150, required=True)
-    last_name = serializers.CharField(max_length=150, required=True)
+    # first_name = serializers.CharField(max_length=150, required=True)
+    # last_name = serializers.CharField(max_length=150, required=True)
+    id=serializers.IntegerField(read_only=True)
     email = serializers.EmailField(required=True)
     username = serializers.CharField(read_only=True)
+    password=serializers.CharField(write_only=True, required=True, max_length=100)
     
     class Meta:
         model=User
-        fields=['username','first_name', 'last_name', 'email', 'phone', 'cv', ]
+        fields=['id','username','first_name', 'last_name', 'email', 'phone', 'cv', 'password' ]
+
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
     
+    def update(self, instance, validated_data):
+        user = super().update(instance, validated_data)
+        try:
+            user.set_password(validated_data['password'])
+            user.save()
+        except KeyError:
+            pass
+        return user
+
     def validate_email(self, value):
         if len(User.objects.filter(email=value))>=1:
             raise serializers.ValidationError('User with such email already exists.')
