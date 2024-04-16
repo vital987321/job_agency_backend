@@ -4,10 +4,12 @@ from agencyapp.models import Vacancy, Application, User
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from agencyapp.api.filters import VacancyFilter
+from rest_framework import permissions
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+
 
 class VacancyViewSet(viewsets.ModelViewSet):
     queryset=Vacancy.objects.all()
@@ -32,6 +34,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     # def list(self, request, *args, **kwargs):
     #     print()
