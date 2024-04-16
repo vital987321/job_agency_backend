@@ -4,6 +4,8 @@ from django.conf import settings
 from rest_framework import exceptions
 
 
+
+
 class TokenExpiredAuthantication(TokenAuthentication):
     def authenticate(self, request):
         try:
@@ -16,5 +18,4 @@ class TokenExpiredAuthantication(TokenAuthentication):
             msg='Token expired. Please login again.'
             raise exceptions.AuthenticationFailed(msg)
         return user, token
-    
-    
+
