@@ -29,12 +29,15 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def validate_email(self, value):
-        if len(User.objects.filter(email=value))>=1:
+        if self.context['request'].method=="POST" and len(User.objects.filter(email=value))>=1:
             raise serializers.ValidationError('User with such email already exists.')
         return value
 
     def save(self):
-        super().save(username=self.validated_data['email'])
+        if self.context['request'].method=="POST":
+            super().save(username=self.validated_data['email'])
+        else:
+            super().save()
 
 
 class SectorSerializer(serializers.ModelSerializer):
