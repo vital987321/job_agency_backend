@@ -17,12 +17,6 @@ class VacancyViewSet(viewsets.ModelViewSet):
     filter_backends=[DjangoFilterBackend]
     filterset_class=VacancyFilter
 
-# class VacancyViewSet(viewsets.ModelViewSet):
-#     queryset=Vacancy.objects.all()
-#     serializer_class=VacancySerializer
-#     filter_backends=[DjangoFilterBackend]
-#     # filterset_fields=['name', 'location']
-#     filterset_fields={'name':["icontains","exact"], "location":["exact"]}
     
 
 
@@ -30,21 +24,21 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     queryset=Application.objects.all()
     serializer_class=ApplicationSerializer
 
+    def perform_create(self, serializer):
+        if 'use_profile_cv' in self.request.data.keys():
+            if self.request.data['use_profile_cv']:
+                user_cv=serializer.validated_data['user'].cv 
+                serializer.save(cv=user_cv)
+            else:
+                serializer.save()
+        else:
+            serializer.save()
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    # def list(self, request, *args, **kwargs):
-    #     print()
-    #     print('Request:')
-    #     user=request.user
-    #     print(user.id)
-    #     print()
-    #     return super().list(self, request, *args, **kwargs)
-
-
 
 
     
