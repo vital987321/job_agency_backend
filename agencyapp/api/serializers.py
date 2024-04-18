@@ -71,6 +71,23 @@ class VacancySerializer(serializers.ModelSerializer):
 
 
 
+# class ApplicationSerializer(serializers.ModelSerializer):
+#     created_at = serializers.DateTimeField(read_only=True)
+#     class Meta:
+#         model=Application
+#         fields=['vacancy',
+#                 'user',
+#                 'phone', 
+#                 'email', 
+#                 'message',
+#                 'cv', 
+#                 'status',
+#                 'created_at',
+#                 'first_name',
+#                 'last_name'
+#                  ]
+
+
 class ApplicationSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(read_only=True)
     class Meta:
@@ -86,4 +103,14 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'first_name',
                 'last_name'
                  ]
-
+        
+    def create(self, validated_data):
+        application = super().create(validated_data)
+        print()
+        print("validated_data:")
+        print(validated_data)
+        print()
+        user_cv=validated_data['user'].cv
+        print(user_cv)
+        application.save(cv=user_cv)
+        return application
