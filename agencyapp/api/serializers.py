@@ -72,10 +72,13 @@ class VacancySerializer(serializers.ModelSerializer):
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
+    vacancy_details=VacancySerializer(read_only=True, source='vacancy')
     created_at = serializers.DateTimeField(read_only=True)
     class Meta:
         model=Application
-        fields=['vacancy',
+        fields=['id',
+                'vacancy',
+                'vacancy_details',
                 'user',
                 'phone', 
                 'email', 
@@ -86,4 +89,3 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'first_name',
                 'last_name'
                  ]
-        
