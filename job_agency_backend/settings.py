@@ -164,7 +164,7 @@ RESIDENCE_TYPES=[
 
 APPLICATION_STATUS=[
     ('Pending','Pending'),
-    ('Confirmed', 'Confirmed'),
+    ('Approved', 'Approved'),
     ('Rejected','Rejected')
 ]
 
