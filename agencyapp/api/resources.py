@@ -3,7 +3,7 @@ from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorS
 from agencyapp.models import Vacancy, Application, User
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from agencyapp.api.filters import VacancyFilter
+from agencyapp.api.filters import VacancyFilter, IsOwnerFilterBackend
 from rest_framework import permissions
 
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -23,6 +23,7 @@ class VacancyViewSet(viewsets.ModelViewSet):
 class ApplicationViewSet(viewsets.ModelViewSet):
     queryset=Application.objects.all()
     serializer_class=ApplicationSerializer
+    filter_backends=[IsOwnerFilterBackend]
 
     def perform_create(self, serializer):
         if 'use_profile_cv' in self.request.data.keys():

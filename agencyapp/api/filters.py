@@ -1,6 +1,7 @@
 from django_filters import rest_framework as filters
 from agencyapp.models import Vacancy
 from django.db.models import Q
+from rest_framework import filters as rf_filters
 
 class VacancyFilter(filters.FilterSet):
     key_search=filters.CharFilter(method='name_or_description')
@@ -18,3 +19,9 @@ class VacancyFilter(filters.FilterSet):
         
 
 
+class IsOwnerFilterBackend(rf_filters.BaseFilterBackend):
+    """
+    Allows users to see only their own objects
+    """
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(user=request.user)
