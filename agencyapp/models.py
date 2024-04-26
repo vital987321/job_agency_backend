@@ -40,8 +40,16 @@ class Vacancy(models.Model):
 
     def __str__(self):
         if len(self.name)<30:
-            return self.name
-        return self.name[:28]+'...'
+            name=str(self.name)
+        else:
+            name=self.name[:28]+'...'
+        if self.location:
+            location = self.location
+        else:
+            location='-'
+        return name + ' | ' + location + ' | ' + str(self.salary) + ' | ' + str(self.created_at)
+       
+    
 
 class Application(models.Model):
     vacancy=models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
@@ -55,4 +63,16 @@ class Application(models.Model):
     status=models.CharField(max_length=50, choices=APPLICATION_STATUS, default=APPLICATION_STATUS[0][0])
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        vacancy=self.vacancy.name
+        if len(self.vacancy.name)<30:
+            vacancy=str(self.vacancy.name)
+        else:
+            vacancy=self.vacancy.name[:28]+'...'
 
+        if self.user:
+            user=self.user.username
+        else:
+            user=self.email
+
+        return vacancy + ' | ' + user + ' | ' + str(self.created_at)
