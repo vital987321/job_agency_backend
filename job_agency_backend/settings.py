@@ -143,24 +143,14 @@ CONTRACT_TYPE=[
 ]
 RESIDENCE_TYPES=[
     (1, 'EU citizenship'),
-    (2, 'Permanent rsidance',),
-    (3, 'Residance permit with free acces to job market'),
+    (2, 'Permanent residence',),
+    (3, 'Residance permit with free access to job market'),
     (4, 'Blue card'),
     (5, 'Working card'),
     (6, 'Working visa'),
     (7, 'No visa'),
 ]
 
-# RESIDENCE_TYPES=[
-#     ('EU citizenship', 'EU citizenship'),
-#     ('Permanent rsidance', 'Permanent rsidance',),
-#     ('Residance permit with free acces to job market',
-#      'Residance permit with free acces to job market'),
-#     ('Blue card', 'Blue card'),
-#     ('Working card', 'Working card'),
-#     ('Working visa', 'Working visa'),
-#     ('No visa', 'No visa'),
-# ]
 
 APPLICATION_STATUS=[
     ('Pending','Pending'),

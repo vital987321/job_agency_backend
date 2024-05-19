@@ -1,11 +1,12 @@
 from rest_framework import viewsets
 from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorSerializer, ApplicationSerializer
-from agencyapp.models import Vacancy, Application, User
+from agencyapp.models import Vacancy, Application, User, Sector
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from agencyapp.api.filters import VacancyFilter, IsOwnerFilterBackend
 from rest_framework import permissions
 from agencyapp.api.permissions import UserPermission
+from agencyapp.api.pagination import LargeResultsSetPagination
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -18,7 +19,12 @@ class VacancyViewSet(viewsets.ModelViewSet):
     filter_backends=[DjangoFilterBackend]
     filterset_class=VacancyFilter
 
-    
+
+class SectorViewSet(viewsets.ModelViewSet):
+    serializer_class=SectorSerializer
+    queryset=Sector.objects.all()
+    pagination_class=LargeResultsSetPagination
+
 
 
 class ApplicationViewSet(viewsets.ModelViewSet):
