@@ -43,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SectorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Sector
-        fields=['name',]   
+        fields=['id', 'name',]   
 
 
 class VacancySerializer(serializers.ModelSerializer):
