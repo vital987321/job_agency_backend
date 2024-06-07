@@ -73,6 +73,7 @@ class VacancySerializer(serializers.ModelSerializer):
 
 class ApplicationSerializer(serializers.ModelSerializer):
     vacancy_details=VacancySerializer(read_only=True, source='vacancy')
+    user_details=UserSerializer(read_only=True, source='user')
     created_at = serializers.DateTimeField(read_only=True)
     class Meta:
         model=Application
@@ -80,6 +81,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'vacancy',
                 'vacancy_details',
                 'user',
+                'user_details',
                 'phone', 
                 'email', 
                 'message',
