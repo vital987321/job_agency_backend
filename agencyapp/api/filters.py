@@ -40,10 +40,38 @@ class AdminOrIsOwnerDjangoFilterBackend(DjangoFilterBackend):
             return super().filter_queryset(request, queryset, view)
         qery_set=super().filter_queryset(request, queryset, view)
         return qery_set.filter(user=request.user)
+
     
 class ApplicationFilterSet(filters.FilterSet):
-    application_id=filters.NumberFilter(field_name='id', lookup_expr='exact')
+    id=filters.NumberFilter(field_name='id', lookup_expr='exact')
+    vacancy_id=filters.NumberFilter(field_name="vacancy", lookup_expr='exact')
+    email=filters.CharFilter(field_name="email", lookup_expr='icontains')
+    status=filters.CharFilter(field_name='status', lookup_expr='icontains')
+    vacancy_name=filters.CharFilter(method='vacancy_name_filter')
+    company=filters.CharFilter(method='company_filter')
+    user_id=filters.NumberFilter(field_name='user', lookup_expr='exact')
+    first_name=filters.CharFilter(method='user_first_name_filter')
+    last_name=filters.CharFilter(method='user_last_name_filter')
+    phone=filters.CharFilter(method='phone_filter')
 
     class Meta:
         model=Application
         fields=[]
+
+    def vacancy_name_filter(self, queryset, query_name, value):
+        return queryset.filter(vacancy__name__icontains=value)
+    
+    def company_filter(self, queryset, query_name, value):
+        return queryset.filter(vacancy__company__icontains=value)
+    
+    def user_first_name_filter (self, queryset, query_name, value):
+        return queryset.filter(first_name__icontains=value)
+    
+    def user_last_name_filter (self, queryset, query_name, value):
+        return queryset.filter(last_name__icontains=value)
+    
+    def phone_filter(self, queryset, query_name, value):
+        if not value:
+            return queryset
+        number=''.join([symbol for symbol in value if symbol.isnumeric()])
+        return queryset.filter(phone__icontains=number)

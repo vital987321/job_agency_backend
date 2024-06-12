@@ -3,7 +3,7 @@ from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorS
 from agencyapp.models import Vacancy, Application, User, Sector
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from agencyapp.api.filters import VacancyFilterSet, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend
+from agencyapp.api.filters import VacancyFilterSet, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet
 from rest_framework import permissions
 from agencyapp.api.permissions import UserPermission
 from agencyapp.api.pagination import LargeResultsSetPagination
@@ -30,6 +30,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     queryset=Application.objects.all()
     serializer_class=ApplicationSerializer
     filter_backends=[AdminOrIsOwnerDjangoFilterBackend]
+    filterset_class=ApplicationFilterSet
 
     def perform_create(self, serializer):
         if 'use_profile_cv' in self.request.data.keys():
@@ -40,22 +41,6 @@ class ApplicationViewSet(viewsets.ModelViewSet):
                 serializer.save()
         else:
             serializer.save()
-
-# old version
-# class ApplicationViewSet(viewsets.ModelViewSet):
-#     queryset=Application.objects.all()
-#     serializer_class=ApplicationSerializer
-#     filter_backends=[IsOwnerFilterBackend]
-
-#     def perform_create(self, serializer):
-#         if 'use_profile_cv' in self.request.data.keys():
-#             if self.request.data['use_profile_cv']:
-#                 user_cv=serializer.validated_data['user'].cv 
-#                 serializer.save(cv=user_cv)
-#             else:
-#                 serializer.save()
-#         else:
-#             serializer.save()
 
 
 class UserViewSet(viewsets.ModelViewSet):
