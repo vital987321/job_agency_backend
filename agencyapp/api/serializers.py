@@ -32,6 +32,15 @@ class UserSerializer(serializers.ModelSerializer):
         if self.context['request'].method=="POST" and len(User.objects.filter(email=value))>=1:
             raise serializers.ValidationError('User with such email already exists.')
         return value
+    
+    def validate_phone(self, value):
+        if not value:
+            return ''
+        allowed_phone_symbols='+0123456789'
+        for symbol in str(value):
+            if not symbol in allowed_phone_symbols:
+                 raise serializers.ValidationError(f"Incorrect phone format. Allowed symbols: '{allowed_phone_symbols}'. Symbol '{symbol}' is not allowed.")
+        return value
 
     def save(self):
         if self.context['request'].method=="POST":
@@ -91,3 +100,14 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'first_name',
                 'last_name'
                  ]
+        
+    def validate_phone(self, value):
+        if not value:
+            return ''
+        allowed_phone_symbols='+0123456789'
+        for symbol in str(value):
+            if not symbol in allowed_phone_symbols:
+                 raise serializers.ValidationError(f"Incorrect phone format. Allowed symbols: '{allowed_phone_symbols}'. Symbol '{symbol}' is not allowed.")
+        return value
+
+        
