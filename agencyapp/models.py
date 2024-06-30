@@ -34,6 +34,7 @@ class Vacancy(models.Model):
     residence_type = models.IntegerField(choices=RESIDENCE_TYPES, blank=True, null=True)
     # residence_type = models.CharField(max_length=100, choices=RESIDENCE_TYPES, blank=True, null=True)
     visa_assistance=models.BooleanField(null=True, blank=True)
+    active=models.BooleanField(default=True)
     class Meta:
         verbose_name_plural='vacancies'
         ordering=['-created_at']

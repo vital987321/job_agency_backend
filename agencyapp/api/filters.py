@@ -18,6 +18,19 @@ class VacancyFilterSet(filters.FilterSet):
     def name_or_description(self, queryset, query_name, value):
         return queryset.filter(Q(name__icontains=value) | Q(description__icontains=value))
         
+class VacancyListDjangoFilterBackend(DjangoFilterBackend):
+    """
+    For uses filters active vacancies
+    For staff filters active vacancies (default)
+        or returns all vacancies (active and not)
+    """
+    def filter_queryset(self, request, queryset, view):
+        if request.user.is_staff:
+            if 'active' in request.query_params.keys():
+                if request.query_params['active']=='false':
+                    return super().filter_queryset(request, queryset, view)
+        query_set=super().filter_queryset(request, queryset, view)
+        return query_set.filter(active=True)
 
 
 class IsOwnerFilterBackend(rf_filters.BaseFilterBackend):

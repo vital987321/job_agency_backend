@@ -76,7 +76,8 @@ class VacancySerializer(serializers.ModelSerializer):
                 'created_at', 
                 'residence_type', 
                 'visa_assistance',
-                'sector_name']
+                'sector_name',
+                'active']
 
 
 
