@@ -10,6 +10,10 @@ class VacancyFilterSet(filters.FilterSet):
     salary_gte=filters.NumberFilter(field_name='salary', lookup_expr='gte')
     salary_lte=filters.NumberFilter(field_name='salary', lookup_expr='lte')
     residence_type=filters.NumberFilter(field_name='residence_type', lookup_expr='gte')
+    name=filters.CharFilter(field_name='name', lookup_expr='icontains')
+    company=filters.CharFilter(method='company_admin')
+    id=filters.NumberFilter(field_name='id', lookup_expr='exact')
+    sector=filters.CharFilter(method='vacancy_sector_name')
     
     class Meta:
         model=Vacancy
@@ -17,6 +21,17 @@ class VacancyFilterSet(filters.FilterSet):
  
     def name_or_description(self, queryset, query_name, value):
         return queryset.filter(Q(name__icontains=value) | Q(description__icontains=value))
+    
+    def company_admin(self, queryset, query_name, value):
+        if self.request.user.is_staff:
+            return queryset.filter(company__icontains=value)
+        return queryset
+    
+    def vacancy_sector_name(self, queryset, query_name, value):
+        return queryset.filter(sector__name__icontains=value)
+    
+
+        
         
 class VacancyListDjangoFilterBackend(DjangoFilterBackend):
     """
@@ -24,12 +39,17 @@ class VacancyListDjangoFilterBackend(DjangoFilterBackend):
     For staff filters active vacancies (default)
         or returns all vacancies (active and not)
     """
+
     def filter_queryset(self, request, queryset, view):
+        query_set=super().filter_queryset(request, queryset, view)
         if request.user.is_staff:
             if 'active' in request.query_params.keys():
-                if request.query_params['active']=='false':
-                    return super().filter_queryset(request, queryset, view)
-        query_set=super().filter_queryset(request, queryset, view)
+                if request.query_params['active']=='all':
+                    return query_set
+                if request.query_params['active']=='deactivated':
+                    return query_set.filter(active=False)
+                if request.query_params['active']=='active':
+                    return query_set.filter(active=True)
         return query_set.filter(active=True)
 
 
