@@ -5,12 +5,13 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
-
+    def __str__(self) -> str:
+        return 'id:'+str(self.id)  + ' | ' + (self.username)
 
 class Sector(models.Model):
     name=models.CharField(max_length=100, unique=True)
     def __str__(self) -> str:
-        return 'Sector: '+str(self.name)
+        return 'id:'+str(self.id)  + ' | ' +   'Sector: '+str(self.name)
     
 
 class Vacancy(models.Model):
@@ -48,7 +49,7 @@ class Vacancy(models.Model):
             location = self.location
         else:
             location='-'
-        return name + ' | ' + location + ' | ' + str(self.salary) + ' | ' + str(self.created_at)
+        return 'id:'+str(self.id)  + ' | ' +  name + ' | ' + location + ' | ' + str(self.salary) + ' | ' + str(self.created_at)
        
     
 
@@ -76,4 +77,4 @@ class Application(models.Model):
         else:
             user=self.email
 
-        return vacancy + ' | ' + user + ' | ' + str(self.created_at)
+        return 'id:'+str(self.id)  + ' | ' +   vacancy + ' | ' + user + ' | ' + str(self.created_at)
