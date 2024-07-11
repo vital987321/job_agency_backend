@@ -50,6 +50,7 @@ class VacancyListDjangoFilterBackend(DjangoFilterBackend):
                     return query_set.filter(active=False)
                 if request.query_params['active']=='active':
                     return query_set.filter(active=True)
+            return query_set
         return query_set.filter(active=True)
 
 
