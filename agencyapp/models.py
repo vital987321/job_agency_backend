@@ -64,6 +64,8 @@ class Application(models.Model):
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
     status=models.CharField(max_length=50, choices=APPLICATION_STATUS, default=APPLICATION_STATUS[0][0])
     created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=['-created_at']
 
     def __str__(self):
         vacancy=self.vacancy.name
