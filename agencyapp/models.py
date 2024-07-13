@@ -2,12 +2,6 @@ from django.db import models
 from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICATION_STATUS
 from django.contrib.auth.models import AbstractUser
 
-class User(AbstractUser):
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    cv = models.FileField(upload_to='media\cv', blank=True, null=True)
-    def __str__(self) -> str:
-        return 'id:'+str(self.id)  + ' | ' + (self.username)
-
 class Sector(models.Model):
     name=models.CharField(max_length=100, unique=True)
     def __str__(self) -> str:
@@ -50,7 +44,13 @@ class Vacancy(models.Model):
         else:
             location='-'
         return 'id:'+str(self.id)  + ' | ' +  name + ' | ' + location + ' | ' + str(self.salary) + ' | ' + str(self.created_at)
-       
+ 
+class User(AbstractUser):
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    cv = models.FileField(upload_to='media\cv', blank=True, null=True)
+    favourites=models.ManyToManyField(Vacancy, blank=True, related_name='users')
+    def __str__(self) -> str:
+        return 'id:'+str(self.id)  + ' | ' + (self.username)      
     
 
 class Application(models.Model):

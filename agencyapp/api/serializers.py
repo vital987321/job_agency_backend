@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        fields=['id','username','first_name', 'last_name', 'email', 'phone', 'cv', 'password' ]
+        fields=['id','username','first_name', 'last_name', 'email', 'phone', 'cv', 'password', 'favourites' ]
 
     def create(self, validated_data):
         user = super().create(validated_data)
@@ -77,7 +77,9 @@ class VacancySerializer(serializers.ModelSerializer):
                 'residence_type', 
                 'visa_assistance',
                 'sector_name',
-                'active']
+                'active',
+                ]
+
 
 
 

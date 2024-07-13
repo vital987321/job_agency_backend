@@ -19,7 +19,6 @@ class VacancyViewSet(viewsets.ModelViewSet):
     filter_backends=[VacancyListDjangoFilterBackend]
     filterset_class=VacancyFilterSet
 
-
 class SectorViewSet(viewsets.ModelViewSet):
     serializer_class=SectorSerializer
     queryset=Sector.objects.all()
