@@ -14,6 +14,7 @@ class VacancyFilterSet(filters.FilterSet):
     company=filters.CharFilter(method='company_admin')
     id=filters.NumberFilter(field_name='id', lookup_expr='exact')
     sector=filters.CharFilter(method='vacancy_sector_name')
+    favourite=filters.BooleanFilter(method='get_favourites')
     
     class Meta:
         model=Vacancy
@@ -29,6 +30,11 @@ class VacancyFilterSet(filters.FilterSet):
     
     def vacancy_sector_name(self, queryset, query_name, value):
         return queryset.filter(sector__name__icontains=value)
+    
+    def get_favourites(self, queryset, query_name, value):
+        if value:
+            return queryset.filter(users=self.request.user)
+        return queryset
     
 
         
