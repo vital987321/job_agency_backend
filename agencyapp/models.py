@@ -48,6 +48,7 @@ class Vacancy(models.Model):
 class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
+    avatar=models.ImageField(upload_to='media\\avatars', blank=True, null=True)
     favourites=models.ManyToManyField(Vacancy, blank=True, related_name='users')
     def __str__(self) -> str:
         return 'id:'+str(self.id)  + ' | ' + (self.username)      
