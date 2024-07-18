@@ -57,11 +57,12 @@ class CustomObtainAuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
+
    
         return Response({
             'token': token.key,
             'user_id': user.pk,
             'username': user.username,
-            #'userAvatarUrl': user.avatar  # media/avatars/avatar1.jpg
+            # 'userAvatarUrl': user.avatar  # media/avatars/avatar1.jpg #Error: concept does not work
 
         })
