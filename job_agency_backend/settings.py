@@ -158,6 +158,8 @@ APPLICATION_STATUS=[
     ('Rejected','Rejected')
 ]
 
+REVIEW_STATUS=APPLICATION_STATUS
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',

@@ -1,5 +1,5 @@
 from django.db import models
-from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICATION_STATUS
+from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICATION_STATUS, REVIEW_STATUS
 from django.contrib.auth.models import AbstractUser
 
 class Sector(models.Model):
@@ -81,3 +81,17 @@ class Application(models.Model):
             user=self.email
 
         return 'id:'+str(self.id)  + ' | ' +   vacancy + ' | ' + user + ' | ' + str(self.created_at)
+
+
+class Review(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE, related_name='review')
+    rating=models.IntegerField()
+    comment=models.TextField(max_length=200, blank=True, default='')
+    created_at=models.DateTimeField(auto_now_add=True)
+    status=models.CharField(max_length=20, choices=REVIEW_STATUS, default=REVIEW_STATUS[0][0])
+
+    class Meta():
+        ordering=['-created_at']
+
+    def __str__(self):
+        return f'id: {str(self.id)} | {self.user.username} | {str(self.created_at)}'

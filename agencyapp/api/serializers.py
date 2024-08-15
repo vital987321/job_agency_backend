@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from agencyapp.models import User, Vacancy, Sector, Application
+from agencyapp.models import User, Vacancy, Sector, Application, Review
 
 class UserSerializer(serializers.ModelSerializer):
     # first_name = serializers.CharField(max_length=150, required=True)
@@ -113,4 +113,24 @@ class ApplicationSerializer(serializers.ModelSerializer):
                  raise serializers.ValidationError(f"Incorrect phone format. Allowed symbols: '{allowed_phone_symbols}'. Symbol '{symbol}' is not allowed.")
         return value
 
-        
+
+class ReviewSerializer(serializers.ModelSerializer):
+    created_at=serializers.DateTimeField(read_only=True)
+    first_name=serializers.SlugRelatedField(read_only=True, slug_field='first_name', source='user',)
+    last_name=serializers.SlugRelatedField(read_only=True, slug_field='last_name', source='user',)
+    avatar=serializers.SerializerMethodField()
+
+    class Meta():
+        model=Review
+        fields=['id', 'user', 'first_name', 'last_name', 'rating', 'comment', 'created_at', 'status', 'avatar']
+    
+    def get_avatar(self, obj):
+        if obj.user.avatar:
+            request = self.context.get('request')
+            avatar=obj.user.avatar.url 
+            return request.build_absolute_uri(avatar)
+        return None
+    
+
+
+
