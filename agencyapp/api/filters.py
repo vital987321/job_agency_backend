@@ -4,6 +4,10 @@ from django.db.models import Q
 from rest_framework import filters as rf_filters
 from django_filters.rest_framework import DjangoFilterBackend
 
+class ReviewFilterSet(filters.FilterSet):
+    user=filters.NumberFilter(field_name='user', lookup_expr='exact')
+
+
 class VacancyFilterSet(filters.FilterSet):
     key_search=filters.CharFilter(method='name_or_description')
     location=filters.CharFilter(field_name='location', lookup_expr='icontains')
@@ -41,9 +45,9 @@ class VacancyFilterSet(filters.FilterSet):
         
 class VacancyListDjangoFilterBackend(DjangoFilterBackend):
     """
-    For uses filters active vacancies
-    For staff filters active vacancies (default)
-        or returns all vacancies (active and not)
+    For users: filters active vacancies
+    For staff: filters active vacancies (default)
+                or returns all vacancies (active and not)
     """
 
     def filter_queryset(self, request, queryset, view):
