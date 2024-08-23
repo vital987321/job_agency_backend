@@ -6,6 +6,21 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class ReviewFilterSet(filters.FilterSet):
     user=filters.NumberFilter(field_name='user', lookup_expr='exact')
+    rating=filters.NumberFilter(field_name='rating', lookup_expr='exact')
+    comment=filters.CharFilter(field_name='comment', lookup_expr='icontains')
+    first_name=filters.CharFilter(method='get_name')
+    last_name=filters.CharFilter(method='get_last_name')
+    email=filters.CharFilter(method='get_email')
+
+    def get_name(self, queryset, query_name, value):
+        return queryset.filter(user__first_name__icontains=value)
+    
+    def get_last_name(self, queryset, query_name, value):
+        return queryset.filter(user__last_name__icontains=value)
+    
+    def get_email(self, queryset, query_name, value):
+        return queryset.filter(user__email__icontains=value)
+
 
 
 class VacancyFilterSet(filters.FilterSet):
