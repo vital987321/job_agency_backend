@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from agencyapp.models import User, Vacancy, Sector, Application, Review
+from django.db.models import Avg
 
 class UserSerializer(serializers.ModelSerializer):
     # first_name = serializers.CharField(max_length=150, required=True)
@@ -119,10 +120,11 @@ class ReviewSerializer(serializers.ModelSerializer):
     first_name=serializers.SlugRelatedField(read_only=True, slug_field='first_name', source='user',)
     last_name=serializers.SlugRelatedField(read_only=True, slug_field='last_name', source='user',)
     avatar=serializers.SerializerMethodField()
+    avg_rating=serializers.SerializerMethodField()
 
     class Meta():
         model=Review
-        fields=['id', 'user', 'first_name', 'last_name', 'rating', 'comment', 'created_at', 'status', 'avatar']
+        fields=['id', 'user', 'first_name', 'last_name', 'rating', 'comment', 'created_at', 'status', 'avatar', 'avg_rating']
     
     def get_avatar(self, obj):
         if obj.user.avatar:
@@ -131,6 +133,8 @@ class ReviewSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(avatar)
         return None
     
+    def get_avg_rating(self, obj):
+        return Review.objects.all().aggregate(Avg('rating'))["rating__avg"]
 
 
 
