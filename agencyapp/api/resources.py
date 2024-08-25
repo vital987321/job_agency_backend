@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorSerializer, ApplicationSerializer, ReviewSerializer
-from agencyapp.models import Vacancy, Application, User, Sector, Review
+from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorSerializer, ApplicationSerializer, ReviewSerializer, PartnerSerializer
+from agencyapp.models import Vacancy, Application, User, Sector, Review, Partner
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBackend, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet, ReviewFilterSet
@@ -55,6 +55,10 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class =ReviewSerializer
     filterset_class=ReviewFilterSet
 
+class PartnerViewSet(viewsets.ModelViewSet):
+    queryset=Partner.objects.all()
+    serializer_class=PartnerSerializer
+
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -71,3 +75,4 @@ class CustomObtainAuthToken(ObtainAuthToken):
             # 'userAvatarUrl': user.avatar  # media/avatars/avatar1.jpg #Error: concept does not work
 
         })
+

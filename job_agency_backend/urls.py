@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from agencyapp.api.resources import VacancyViewSet, ApplicationViewSet, UserViewSet, CustomObtainAuthToken, SectorViewSet, ReviewViewSet
+from agencyapp.api.resources import VacancyViewSet, ApplicationViewSet, UserViewSet, CustomObtainAuthToken, SectorViewSet, ReviewViewSet, PartnerViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 # from rest_framework.authtoken import views
@@ -29,6 +29,7 @@ router.register(r'application', ApplicationViewSet)
 router.register(r'user', UserViewSet)
 router.register(r'sector', SectorViewSet)
 router.register(r'review', ReviewViewSet)
+router.register(r'partner', PartnerViewSet)
 
 
 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from agencyapp.models import User, Vacancy, Sector, Application, Review
+from agencyapp.models import User, Vacancy, Sector, Application, Review, Partner
 from django.db.models import Avg
 
 class UserSerializer(serializers.ModelSerializer):
@@ -138,3 +138,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 
+class PartnerSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Partner
+        fields='__all__'

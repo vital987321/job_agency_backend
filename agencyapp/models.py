@@ -95,3 +95,13 @@ class Review(models.Model):
 
     def __str__(self):
         return f'id: {str(self.id)} | {self.user.username} | {str(self.created_at)}'
+    
+
+class Partner (models.Model):
+    company=models.CharField(max_length=100)
+    hr_name=models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+
+    def __str__(self):
+        return f'id: {str(self.id)} | {self.company} | {self.hr_name}'
+    
