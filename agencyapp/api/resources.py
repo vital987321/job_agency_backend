@@ -3,7 +3,7 @@ from agencyapp.api.serializers import UserSerializer, VacancySerializer, SectorS
 from agencyapp.models import Vacancy, Application, User, Sector, Review, Partner
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBackend, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet, ReviewFilterSet
+from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBackend, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet, ReviewFilterSet, PartnerFilterSet
 from rest_framework import permissions
 from agencyapp.api.permissions import UserPermission
 from agencyapp.api.pagination import LargeResultsSetPagination
@@ -58,6 +58,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class PartnerViewSet(viewsets.ModelViewSet):
     queryset=Partner.objects.all()
     serializer_class=PartnerSerializer
+    filterset_class=PartnerFilterSet
 
 
 class CustomObtainAuthToken(ObtainAuthToken):

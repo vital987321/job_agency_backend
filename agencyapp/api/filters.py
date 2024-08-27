@@ -4,6 +4,18 @@ from django.db.models import Q
 from rest_framework import filters as rf_filters
 from django_filters.rest_framework import DjangoFilterBackend
 
+class PartnerFilterSet(filters.FilterSet):
+    company=filters.CharFilter(field_name='company', lookup_expr='icontains')
+    hr_name=filters.CharFilter(field_name='hr_name', lookup_expr='icontains')
+    phone=filters.CharFilter(method='phone_filter')
+
+    def phone_filter(self, queryset, query_name, value):
+        if not value:
+            return queryset
+        number=''.join([symbol for symbol in value if symbol.isnumeric()])
+        return queryset.filter(phone__icontains=number)
+
+
 class ReviewFilterSet(filters.FilterSet):
     user=filters.NumberFilter(field_name='user', lookup_expr='exact')
     rating=filters.NumberFilter(field_name='rating', lookup_expr='exact')
