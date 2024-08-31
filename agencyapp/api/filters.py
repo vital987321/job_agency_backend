@@ -56,7 +56,7 @@ class VacancyFilterSet(filters.FilterSet):
     
     def company_admin(self, queryset, query_name, value):
         if self.request.user.is_staff:
-            return queryset.filter(company__icontains=value)
+            return queryset.filter(partner__company__icontains=value)
         return queryset
     
     def vacancy_sector_name(self, queryset, query_name, value):
