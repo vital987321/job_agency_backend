@@ -20,6 +20,7 @@ class VacancyViewSet(viewsets.ModelViewSet):
     filterset_class = VacancyFilterSet
 
 
+
 class SectorViewSet(viewsets.ModelViewSet):
     serializer_class = SectorSerializer
     queryset = Sector.objects.all()

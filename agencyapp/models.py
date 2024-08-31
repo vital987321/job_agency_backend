@@ -7,13 +7,21 @@ class Sector(models.Model):
     def __str__(self) -> str:
         return 'id:'+str(self.id)  + ' | ' +   'Sector: '+str(self.name)
     
+class Partner (models.Model):
+    company=models.CharField(max_length=100)
+    hr_name=models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+
+    def __str__(self):
+        return f'id: {str(self.id)} | {self.company} | {self.hr_name}'
 
 class Vacancy(models.Model):
     name=models.CharField(max_length=200)
     sector=models.ManyToManyField(Sector, blank=True, related_name='vacancies')
     location = models.CharField(max_length=300, blank=True, null=True)
     salary=models.PositiveIntegerField(blank=True, null=True)
-    company=models.CharField(max_length=100, blank=True, null=True)
+    partner=models.ForeignKey(Partner, on_delete=models.CASCADE, blank=True, null=True, related_name='vacancies')
+    # company=models.CharField(max_length=100, blank=True, null=True)
     contract_type = models.CharField(
         max_length=100, choices=CONTRACT_TYPE, default=CONTRACT_TYPE[0][0])
     hours_from = models.TimeField(blank=True, null=True)
@@ -97,11 +105,5 @@ class Review(models.Model):
         return f'id: {str(self.id)} | {self.user.username} | {str(self.created_at)}'
     
 
-class Partner (models.Model):
-    company=models.CharField(max_length=100)
-    hr_name=models.CharField(max_length=100, blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
 
-    def __str__(self):
-        return f'id: {str(self.id)} | {self.company} | {self.hr_name}'
     

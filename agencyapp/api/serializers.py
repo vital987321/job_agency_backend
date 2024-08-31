@@ -56,9 +56,17 @@ class SectorSerializer(serializers.ModelSerializer):
         fields=['id', 'name',]   
 
 
+class PartnerSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Partner
+        fields='__all__'
+
+
+
 class VacancySerializer(serializers.ModelSerializer):
     created_at=serializers.DateTimeField(read_only=True)
     sector_name = SectorSerializer(many=True, read_only=True, source='sector')
+    partner_data=serializers.SerializerMethodField(source='partner', read_only=True)
 
     class Meta:
         model=Vacancy
@@ -66,8 +74,7 @@ class VacancySerializer(serializers.ModelSerializer):
                 'name',
                 'sector',
                 'location', 
-                'salary', 
-                'company',
+                'salary',
                 'contract_type',
                 'hours_from',
                 'hours_to',
@@ -79,10 +86,17 @@ class VacancySerializer(serializers.ModelSerializer):
                 'visa_assistance',
                 'sector_name',
                 'active',
+                'partner_data'
                 ]
+            
+    def get_partner_data(self, obj):
+        request = self.context.get('request', None)
+        if request.user.is_staff and obj.partner:
+            partner_queryset=Partner.objects.get(id=obj.partner.id)
+            return PartnerSerializer(partner_queryset).data
+        return ''
 
-
-
+        
 
 class ApplicationSerializer(serializers.ModelSerializer):
     vacancy_details=VacancySerializer(read_only=True, source='vacancy')
@@ -121,6 +135,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     last_name=serializers.SlugRelatedField(read_only=True, slug_field='last_name', source='user',)
     avatar=serializers.SerializerMethodField()
     avg_rating=serializers.SerializerMethodField()
+    
 
     class Meta():
         model=Review
@@ -138,7 +153,3 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 
-class PartnerSerializer(serializers.ModelSerializer):
-    class Meta():
-        model=Partner
-        fields='__all__'
