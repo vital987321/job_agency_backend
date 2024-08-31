@@ -67,6 +67,7 @@ class VacancySerializer(serializers.ModelSerializer):
     created_at=serializers.DateTimeField(read_only=True)
     sector_name = SectorSerializer(many=True, read_only=True, source='sector')
     partner_data=serializers.SerializerMethodField(source='partner', read_only=True)
+    partner=serializers.PrimaryKeyRelatedField(write_only=True, queryset=Partner.objects.all())
 
     class Meta:
         model=Vacancy
@@ -86,7 +87,8 @@ class VacancySerializer(serializers.ModelSerializer):
                 'visa_assistance',
                 'sector_name',
                 'active',
-                'partner_data'
+                'partner_data',
+                'partner'
                 ]
             
     def get_partner_data(self, obj):

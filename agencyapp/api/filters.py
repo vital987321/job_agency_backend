@@ -68,8 +68,7 @@ class VacancyFilterSet(filters.FilterSet):
         return queryset
     
 
-        
-        
+
 class VacancyListDjangoFilterBackend(DjangoFilterBackend):
     """
     For users: filters active vacancies
