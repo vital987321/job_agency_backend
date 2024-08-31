@@ -72,6 +72,7 @@ class Application(models.Model):
     message = models.TextField(max_length=1000, blank=True, null=True)
     cv = models.FileField(upload_to='media\cv', blank=True, null=True)
     status=models.CharField(max_length=50, choices=APPLICATION_STATUS, default=APPLICATION_STATUS[0][0])
+    seen=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering=['-created_at']

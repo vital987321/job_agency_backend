@@ -118,7 +118,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'status',
                 'created_at',
                 'first_name',
-                'last_name'
+                'last_name',
+                'seen'
                  ]
         
     def validate_phone(self, value):
