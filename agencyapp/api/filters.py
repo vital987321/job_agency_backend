@@ -106,9 +106,12 @@ class AdminOrIsOwnerDjangoFilterBackend(DjangoFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
+ 
         if request.user.is_staff:
             return super().filter_queryset(request, queryset, view)
         qery_set=super().filter_queryset(request, queryset, view)
+        if request.user.is_anonymous:
+            return qery_set.none()
         return qery_set.filter(user=request.user)
 
     
@@ -132,7 +135,7 @@ class ApplicationFilterSet(filters.FilterSet):
         return queryset.filter(vacancy__name__icontains=value)
     
     def company_filter(self, queryset, query_name, value):
-        return queryset.filter(vacancy__company__icontains=value)
+        return queryset.filter(vacancy__partner__company__icontains=value)
     
     def user_first_name_filter (self, queryset, query_name, value):
         return queryset.filter(first_name__icontains=value)

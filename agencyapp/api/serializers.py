@@ -119,9 +119,11 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 'created_at',
                 'first_name',
                 'last_name',
-                'seen'
+                'seen',
                  ]
-        
+
+
+
     def validate_phone(self, value):
         if not value:
             return ''
