@@ -107,3 +107,17 @@ class ReviewPermission(permissions.BasePermission):
         if view.action =='retrieve':
             return True
         return False
+    
+class SectorPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_staff:
+            return True
+        if view.action in ['list', 'retreive']:
+            return True
+        return False
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_staff:
+            return True
+        if view.action =='retreive':
+            return True
+        return False

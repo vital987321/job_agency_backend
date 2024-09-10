@@ -5,7 +5,7 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBackend, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet, ReviewFilterSet, PartnerFilterSet
 from rest_framework import permissions
-from agencyapp.api.permissions import UserPermission, ApplicationPermission, VacancyPermission, PartnerPermission, ReviewPermission
+from agencyapp.api.permissions import UserPermission, ApplicationPermission, VacancyPermission, PartnerPermission, ReviewPermission, SectorPermission
 from agencyapp.api.pagination import LargeResultsSetPagination
 
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -26,6 +26,7 @@ class SectorViewSet(viewsets.ModelViewSet):
     serializer_class = SectorSerializer
     queryset = Sector.objects.all()
     pagination_class = LargeResultsSetPagination
+    permission_classes=[SectorPermission]
 
 
 class ApplicationViewSet(viewsets.ModelViewSet):

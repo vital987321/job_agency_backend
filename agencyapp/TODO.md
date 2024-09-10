@@ -37,22 +37,21 @@ BACKEND:
                 [ ] consider deleting user profile
             [ ] Staff 
                 [ ] sees all users. CRUD or cRUD
-        [ ] Review
-            [ ] Anonimous
-                [ ] sees all reviews. cRud
-            [ ] User
-                [ ] sees all reviews. cRud
-                [ ] it's own. CRUD
+        [x] Review
+            [x] Anonimous
+                [x] sees all reviews. cRud
+            [x] User
+                [x] sees all reviews. cRud
+                [x] it's own. CRUD
                 [x] May have only one review
-            [ ] Staff
-                [ ] all reviews cRuD
-                [ ] it's own CRUD
+            [x] Staff
+                [x] all reviews CRUD
                 [x] May have only one review
         [x] Partner
             [x] Anonimous crud
             [x] User crud
             [x] Staff CRUD
-        [ ] Sector
-            [ ] Anonimous cRud
-            [ ] User cRud
-            [ ] Staff CRUD
+        [x] Sector
+            [x] Anonimous cRud
+            [x] User cRud
+            [x] Staff CRUD
