@@ -29,7 +29,7 @@ class UserPermission(permissions.BasePermission):
             return False
 
 
-class ApplicationPermissions(permissions.BasePermission):
+class ApplicationPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
@@ -39,7 +39,7 @@ class ApplicationPermissions(permissions.BasePermission):
         # the rest is for authorized not_staff users
         if view.action == 'list':
             return True
-        elif view.action in ['create', 'retrieve', 'destroy']:
+        elif view.action in ['create', 'retrieve', 'destroy']:  
             return True
         elif view.action in ['update', 'partial_update']:
             return False
@@ -52,5 +52,25 @@ class ApplicationPermissions(permissions.BasePermission):
         if request.user.is_staff:
             return True
         if view.action in ['create', 'retrieve', 'destroy']:
+            return obj.user==request.user
+            # return True
+        return False
+
+
+class VacancyPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_staff:
+            return True
+        # Uuthorized or Anonimous user
+        if view.action == 'list':
+            return True
+        if view.action == 'retrieve':
+            return True
+        return False
+    def has_boject_permission(self, request, view, obj):
+        if request.user.is_staff:
+            return True
+        # Uuthorized or Anonimous user
+        if view.action == 'retrieve':
             return True
         return False

@@ -12,22 +12,22 @@ BACKEND:
         [ ] Permissions to Review
     [ ] Permissions
         [ ] Only Stuff to admin flow pages
-        [ ] Application
-            [ ] Anonimous user
-                [ ] crud (has no access to applications)
-            [ ] User 
+        [x] Application
+            [x] Anonimous user
+                [x] crud (has no access to applications)
+            [x] User 
                 [ ] has acces to it's own applications only CRuD
-            [ ] Staff 
-                [ ] CRUD or CRuD. has access to all applications
-        [ ] Vacancies
-            [ ] Anonimous & User
-                [ ] see only activated vacancies
-                [ ] cRud
-                [ ] does not see partner/company fields
-            [ ] Staff
-                [ ] sees activated and deactevated vacancies
-                [ ] CRUD
-                [ ] sees partner/company fields
+            [x] Staff 
+                [x] CRUD or CRuD. has access to all applications
+        [x] Vacancies
+            [x] Anonimous & User
+                [x] see only activated vacancies
+                [x] cRud
+                [x] does not see partner/company fields
+            [x] Staff
+                [x] sees activated and deactevated vacancies
+                [x] CRUD
+                [x] sees partner/company fields
         [ ] User data
             [ ] Anonimous
                 [ ] does not see users data

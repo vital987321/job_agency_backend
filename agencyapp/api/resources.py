@@ -5,7 +5,7 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBackend, IsOwnerFilterBackend, AdminOrIsOwnerDjangoFilterBackend, ApplicationFilterSet, ReviewFilterSet, PartnerFilterSet
 from rest_framework import permissions
-from agencyapp.api.permissions import UserPermission, ApplicationPermissions
+from agencyapp.api.permissions import UserPermission, ApplicationPermission, VacancyPermission
 from agencyapp.api.pagination import LargeResultsSetPagination
 
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -18,6 +18,7 @@ class VacancyViewSet(viewsets.ModelViewSet):
     serializer_class = VacancySerializer
     filter_backends = [VacancyListDjangoFilterBackend]
     filterset_class = VacancyFilterSet
+    permission_classes=[VacancyPermission]
 
 
 
@@ -32,7 +33,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     filter_backends = [AdminOrIsOwnerDjangoFilterBackend]
     filterset_class = ApplicationFilterSet
-    permission_classes=[ApplicationPermissions]
+    permission_classes=[ApplicationPermission]
 
     def perform_create(self, serializer):
         if 'use_profile_cv' in self.request.data.keys():
