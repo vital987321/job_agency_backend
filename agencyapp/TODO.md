@@ -28,7 +28,7 @@ BACKEND:
                 [x] sees activated and deactevated vacancies
                 [x] CRUD
                 [x] sees partner/company fields
-        [ ] User data
+        [x] User data
             [ ] Anonimous
                 [ ] does not see users data
                 [ ] Crud 

@@ -7,6 +7,8 @@ class UserPermission(permissions.BasePermission):
         if request.user.is_staff:
             return True
         if not request.user.is_authenticated:
+            if view.action=='create':
+                return True
             return False
         if request.user.is_authenticated:
             if view.action == 'list':
