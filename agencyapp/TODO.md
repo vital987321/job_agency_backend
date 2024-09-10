@@ -43,15 +43,15 @@ BACKEND:
             [ ] User
                 [ ] sees all reviews. cRud
                 [ ] it's own. CRUD
-                [ ] May have only one review
+                [x] May have only one review
             [ ] Staff
                 [ ] all reviews cRuD
                 [ ] it's own CRUD
-                [ ] May have only one review
-        [ ] Partner
-            [ ] Anonimous crud
-            [ ] User crud
-            [ ] Staff CRUD
+                [x] May have only one review
+        [x] Partner
+            [x] Anonimous crud
+            [x] User crud
+            [x] Staff CRUD
         [ ] Sector
             [ ] Anonimous cRud
             [ ] User cRud

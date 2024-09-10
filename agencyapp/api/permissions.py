@@ -84,3 +84,26 @@ class PartnerPermission(permissions.BasePermission):
         if request.user.is_staff:
             return True
         return False
+
+class ReviewPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_staff:
+            return True
+        if request.user.is_authenticated:
+            return True
+        # Anonimous User
+        if view.action in ['list', 'retrieve']:
+            return True
+        return False
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_staff:
+            return True
+        if request.user.is_authenticated:
+            if view.action in ['retrieve','create']:
+                return True
+            if view.action in ['update', 'partial_update', 'destroy']:
+                return obj.user==request.user
+        # Anonimous User
+        if view.action =='retrieve':
+            return True
+        return False
