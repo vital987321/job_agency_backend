@@ -158,6 +158,19 @@ APPLICATION_STATUS=[
     ('Rejected','Rejected')
 ]
 
+
+USER_ROLES=[
+    ('auth_user','auth_user'),
+    ('staff','staff' ),
+    ('admin', 'admin'),
+]
+
+USER_ROLE_CODE={
+    'auth_user':'1150',
+    'staff': '2250',
+    'admin': '1001',
+}
+
 REVIEW_STATUS=APPLICATION_STATUS
 
 REST_FRAMEWORK = {

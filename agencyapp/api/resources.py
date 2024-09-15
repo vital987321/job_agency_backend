@@ -7,10 +7,10 @@ from agencyapp.api.filters import VacancyFilterSet, VacancyListDjangoFilterBacke
 from rest_framework import permissions
 from agencyapp.api.permissions import UserPermission, ApplicationPermission, VacancyPermission, PartnerPermission, ReviewPermission, SectorPermission
 from agencyapp.api.pagination import LargeResultsSetPagination
-
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from agencyapp.utils.user_role import provide_user_role
 
 
 class VacancyViewSet(viewsets.ModelViewSet):
@@ -79,7 +79,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
             'token': token.key,
             'user_id': user.pk,
             'username': user.username,
+            'role': provide_user_role(user)
             # 'userAvatarUrl': user.avatar  # media/avatars/avatar1.jpg #Error: concept does not work
-
         })
 

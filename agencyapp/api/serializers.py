@@ -1,6 +1,9 @@
+
 from rest_framework import serializers
 from agencyapp.models import User, Vacancy, Sector, Application, Review, Partner
 from django.db.models import Avg
+from agencyapp.utils.user_role import provide_user_role
+
 
 class UserSerializer(serializers.ModelSerializer):
     # first_name = serializers.CharField(max_length=150, required=True)
@@ -9,10 +12,15 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     username = serializers.CharField(read_only=True)
     password=serializers.CharField(write_only=True, required=True, max_length=100)
+    role=serializers.SerializerMethodField()
     
     class Meta:
         model=User
-        fields=['id','username','first_name', 'last_name', 'email', 'phone', 'cv', 'password', 'favourites', 'avatar' ]
+        fields=['id','username','first_name', 'last_name', 'email', 'phone', 'cv', 'password', 'favourites', 'avatar', 'role', ]
+
+    def get_role(self, obj):
+        return provide_user_role(obj)
+
 
     def create(self, validated_data):
         user = super().create(validated_data)

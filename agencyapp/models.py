@@ -1,5 +1,5 @@
 from django.db import models
-from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICATION_STATUS, REVIEW_STATUS
+from job_agency_backend.settings import CONTRACT_TYPE, RESIDENCE_TYPES, APPLICATION_STATUS, REVIEW_STATUS, USER_ROLES
 from django.contrib.auth.models import AbstractUser
 
 class Sector(models.Model):

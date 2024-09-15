@@ -29,14 +29,14 @@ BACKEND:
                 [x] CRUD
                 [x] sees partner/company fields
         [x] User data
-            [ ] Anonimous
-                [ ] does not see users data
-                [ ] Crud 
-            [ ] User
-                [ ] sees only it's own data cRUD
-                [ ] consider deleting user profile
-            [ ] Staff 
-                [ ] sees all users. CRUD or cRUD
+            [x] Anonimous
+                [x] does not see users data
+                [x] Crud 
+            [x] User
+                [x] sees only it's own data cRUD
+                [x] consider deleting user profile
+            [x] Staff 
+                [x] sees all users. CRUD or cRUD
         [x] Review
             [x] Anonimous
                 [x] sees all reviews. cRud
