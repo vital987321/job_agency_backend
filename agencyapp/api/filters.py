@@ -69,25 +69,37 @@ class VacancyFilterSet(filters.FilterSet):
     
 
 
-class VacancyListDjangoFilterBackend(DjangoFilterBackend):
+class VacancyDjangoFilterBackend(DjangoFilterBackend):
     """
-    For users: filters active vacancies
+    for Anonymous user: filters active vacancies
     For staff: filters active vacancies (default)
                 or returns all vacancies (active and not)
+    For authenticated users: filters list of active vacancies
+               retreives (obj) an active vacancy 
+                    or applied diactivated vacancy  
     """
 
     def filter_queryset(self, request, queryset, view):
         query_set=super().filter_queryset(request, queryset, view)
-        if request.user.is_staff:
+        if not request.user.is_authenticated:
+            return query_set.filter(active=True)
+        
+        elif request.user.is_staff:
+            if view.action=='retrieve':
+                return query_set
             if 'active' in request.query_params.keys():
                 if request.query_params['active']=='all':
                     return query_set
-                if request.query_params['active']=='deactivated':
+                elif request.query_params['active']=='deactivated':
                     return query_set.filter(active=False)
-                if request.query_params['active']=='active':
-                    return query_set.filter(active=True)
-            return query_set
-        return query_set.filter(active=True)
+            else: #active=true (default)
+                return query_set.filter(active=True)
+        else: # authenticated user
+            if view.action=='list':
+                return query_set.filter(active=True)
+            if view.action=='retrieve':
+                return query_set.filter(Q(active=True) | Q(users=request.user))
+
 
 
 class IsOwnerFilterBackend(rf_filters.BaseFilterBackend):
