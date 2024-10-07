@@ -85,8 +85,9 @@ class VacancyDjangoFilterBackend(DjangoFilterBackend):
             return query_set.filter(active=True)
         
         elif request.user.is_staff:
-            if view.action=='retrieve':
+            if view.action in ('retrieve', 'partial_update', 'destroy'):
                 return query_set
+
             if 'active' in request.query_params.keys():
                 if request.query_params['active']=='all':
                     return query_set

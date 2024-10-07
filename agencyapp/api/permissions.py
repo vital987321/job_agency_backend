@@ -66,7 +66,7 @@ class VacancyPermission(permissions.BasePermission):
         if view.action == 'retrieve':
             return True
         return False
-    def has_boject_permission(self, request, view, obj):
+    def has_object_permission(self, request, view, obj):
         if request.user.is_staff:
             return True
         # Uuthorized or Anonimous user
